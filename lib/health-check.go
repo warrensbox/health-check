@@ -93,7 +93,7 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, ch chan<- *List
 	attempt := 0
 	input.TargetGroupArn = &arn
 
-	for attempt < 3 {
+	for attempt < id.Attempts {
 		result, err := svc.DescribeTargetHealth(&input)
 		if err != nil {
 			if aerr, ok := err.(awserr.Error); ok {
@@ -126,7 +126,7 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, ch chan<- *List
 		if listing.Status == "healthy" {
 			break
 		} else {
-			time.Sleep(10 * time.Second)
+			time.Sleep(time.Duration(id.Delay) * time.Second)
 			attempt++
 		}
 
