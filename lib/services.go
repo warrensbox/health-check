@@ -46,9 +46,6 @@ func (id *Constructor) GetServices() (*TargetGroups, error) {
 		return nil, err
 	}
 
-	// output.SetServiceArns = result.SetServiceArns
-	// fmt.Println(output)
-	//fmt.Println(result.ServiceArns)
 	tgs := id.GetTargetGroupARN(result.ServiceArns)
 	// for _, va := range result.ServiceArns {
 
@@ -100,7 +97,7 @@ func (id *Constructor) GetTargetGroupARN(va []*string) *TargetGroups {
 		}
 	}
 
-	fmt.Println(tgs.TargetGroup)
+	//fmt.Println(tgs.TargetGroup)
 
 	return &tgs
 
