@@ -50,8 +50,6 @@ func main() {
 
 	profile := lib.NewConstructor(construct)
 
-	fmt.Println("tu", profile.Delay)
-
 	tgs, err := profile.GetServices()
 
 	if err != nil {

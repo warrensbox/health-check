@@ -8,6 +8,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/elbv2"
+	"github.com/jedib0t/go-pretty/table"
 )
 
 type List struct {
@@ -40,9 +41,12 @@ func (a *AtomicInt) Value() int {
 
 func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 
+	t := table.NewWriter()
+	t.SetOutputMirror(os.Stdout)
+
 	numOfTargets := len(tgs.TargetGroup)
 
-	fmt.Println("numOfTargets", numOfTargets)
+	fmt.Println("Number of targets:", numOfTargets)
 
 	var n AtomicInt //initialize mutex
 
@@ -59,10 +63,16 @@ func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 		wg.Wait()
 	}(ch)
 
+	t.AppendHeader(table.Row{"Target ARN", "Status"})
+
 	for i := range ch {
-		fmt.Println(i.ARN)
-		fmt.Println(i.Status)
+		// fmt.Println(i.ARN)
+		//fmt.Println(i.Status)
+		t.AppendRow([]interface{}{i.ARN, i.Status})
 	}
+
+	t.SetStyle(table.StyleLight)
+	t.Render()
 
 	select {
 	case <-ch:
