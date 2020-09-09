@@ -34,7 +34,7 @@ func init() {
 	ecsCluster = kingpin.Flag("ecs-cluster", ecsClusterDesc).Short('c').String()
 	timeout = kingpin.Flag("timeout", timeoutDesc).Short('t').Int()
 	attempts = kingpin.Flag("attempts", attemptsDesc).Short('a').Int()
-	delay = kingpin.Flag("delay", attemptsDesc).Short('d').Int()
+	delay = kingpin.Flag("delay", delayDesc).Short('d').Int()
 
 }
 func main() {
