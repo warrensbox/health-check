@@ -25,9 +25,9 @@ func init() {
 		versionFlagDesc = "Displays the version of tg-health-checker"
 		awsRegionDesc   = "Provide AWS Region. Default region - us-east-1"
 		ecsClusterDesc  = "ECS cluster name"
-		timeoutDesc     = "Timeout if heatlhcheck cannot be found"
-		attemptsDesc    = "Number of attempts to query healthcheck"
-		delayDesc       = "Delay in between healthcheck"
+		timeoutDesc     = "Timeout if target groups cannot be found. Default is 300 seconds"
+		attemptsDesc    = "Number of attempts to query healthcheck. Default is 5 seconds"
+		delayDesc       = "Delay in between healthcheck. Default is 10 seconds"
 	)
 
 	awsRegion = kingpin.Flag("region", awsRegionDesc).Short('r').String()
