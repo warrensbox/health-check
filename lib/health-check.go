@@ -66,8 +66,6 @@ func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 	t.AppendHeader(table.Row{"Target ARN", "Status"})
 
 	for i := range ch {
-		// fmt.Println(i.ARN)
-		//fmt.Println(i.Status)
 		t.AppendRow([]interface{}{i.ARN, i.Status})
 	}
 
