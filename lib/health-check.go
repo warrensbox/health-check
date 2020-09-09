@@ -128,6 +128,7 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, ch chan<- *List
 		for _, vl := range result.TargetHealthDescriptions {
 
 			if *vl.TargetHealth.State == "healthy" {
+				fmt.Println("Found HEALTHY Target Group:", arn)
 				listing.Status = "healthy"
 				break
 			}
