@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -35,11 +36,13 @@ func (id *Constructor) GetServices() (*TargetGroups, error) {
 				fmt.Println(ecs.ErrCodeClusterNotFoundException, aerr.Error())
 			default:
 				fmt.Println(aerr.Error())
+				os.Exit(1)
 			}
 		} else {
 			// Print the error, cast err to awserr.Error to get the Code and
 			// Message from an error.
 			fmt.Println(err.Error())
+			os.Exit(1)
 		}
 		return nil, err
 	}
@@ -64,6 +67,7 @@ func (id *Constructor) GetTargetGroupARN(va []*string) *TargetGroups {
 	if err != nil {
 		// A service error occurred.
 		fmt.Println("Error:", err)
+		os.Exit(1)
 	}
 
 	for _, va := range resp.Services {

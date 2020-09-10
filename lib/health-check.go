@@ -114,11 +114,13 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, ch chan<- *List
 					fmt.Println(elbv2.ErrCodeHealthUnavailableException, aerr.Error())
 				default:
 					fmt.Println(aerr.Error())
+					os.Exit(1)
 				}
 			} else {
 				// Print the error, cast err to awserr.Error to get the Code and
 				// Message from an error.
 				fmt.Println(err.Error())
+				os.Exit(1)
 			}
 			return
 		}
