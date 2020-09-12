@@ -1,11 +1,6 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	lib "github.com/warrensbox/health-checker/lib"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -39,23 +34,29 @@ func init() {
 }
 func main() {
 
-	kingpin.CommandLine.Interspersed(false)
-	kingpin.Parse()
+	// kingpin.CommandLine.Interspersed(false)
+	// kingpin.Parse()
 
-	config := &aws.Config{Region: aws.String(*awsRegion)}
+	// config := &aws.Config{Region: aws.String(*awsRegion)}
 
-	session := session.Must(session.NewSession(config))
+	// session := session.Must(session.NewSession(config))
 
-	construct := &lib.Constructor{*ecsCluster, *timeout, *attempts, *delay, session}
+	// construct := &lib.Constructor{*ecsCluster, *timeout, *attempts, *delay, session}
 
-	profile := lib.NewConstructor(construct)
+	// profile := lib.NewConstructor(construct)
 
-	tgs, err := profile.GetServices()
+	// tgs, err := profile.GetServices()
 
-	if err != nil {
-		fmt.Println(err)
-	}
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
 
-	profile.GetHealthCheck(tgs)
+	// profile.GetHealthCheck(tgs)
+
+	// bar := progressbar.Default(100)
+	// for i := 0; i < 100; i++ {
+	// 	bar.Add(1)
+	// 	time.Sleep(40 * time.Millisecond)
+	// }
 
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/elbv2"
 	"github.com/jedib0t/go-pretty/table"
+	progressbar "github.com/schollz/progressbar/v3"
 )
 
 type List struct {
@@ -48,13 +49,17 @@ func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 
 	fmt.Println("Number of targets:", numOfTargets)
 
+	//set up progress bar
+	lengthOfBar := int64(numOfTargets * id.Attempts)
+	bar := progressbar.Default(lengthOfBar)
+
 	var n AtomicInt //initialize mutex
 
 	ch := make(chan *List, numOfTargets)
 
 	wg.Add(numOfTargets)
 	for i := 0; i < numOfTargets; i++ {
-		go id.GetHealthStatus(tgs.TargetGroup[i], &n, ch)
+		go id.GetHealthStatus(tgs.TargetGroup[i], &n, bar, ch)
 	}
 
 	//wait until all target groups has been checked within n tries and after waiting for t times
@@ -88,7 +93,8 @@ func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 
 }
 
-func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, ch chan<- *List) {
+//GetHealthStatus get health status
+func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, bar *progressbar.ProgressBar, ch chan<- *List) {
 
 	defer wg.Done()
 
@@ -130,6 +136,8 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, ch chan<- *List
 			if *vl.TargetHealth.State == "healthy" {
 				fmt.Println("Found HEALTHY Target Group:", arn)
 				listing.Status = "healthy"
+				add := id.Attempts - attempt
+				bar.Add(add)
 				break
 			}
 		}
@@ -139,6 +147,7 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, ch chan<- *List
 		} else {
 			time.Sleep(time.Duration(id.Delay) * time.Second)
 			attempt++
+			bar.Add(1)
 		}
 
 	}
