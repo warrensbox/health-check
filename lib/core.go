@@ -7,12 +7,13 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 )
 
-//Constructor : struct for session
+//Constructor : structure for session
 type Constructor struct {
 	ECSCluster string
 	Timeout    int
 	Attempts   int
 	Delay      int
+	ErrorCode  bool
 	Session    *session.Session
 }
 
@@ -32,5 +33,9 @@ func NewConstructor(attr *Constructor) *Constructor {
 	if attr.Delay == 0 {
 		attr.Delay = 10
 	}
+	if attr.ErrorCode == false {
+		attr.ErrorCode = false
+	}
+
 	return attr
 }

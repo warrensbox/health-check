@@ -40,19 +40,32 @@ func (a *AtomicInt) Value() int {
 	return n
 }
 
+type tmpStruct struct {
+}
+
 func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
-
 	numOfTargets := len(tgs.TargetGroup)
 
-	fmt.Println("Number of targets:", numOfTargets)
+	fmt.Println("(2/4) Number of target groups:", numOfTargets)
 
 	//set up progress bar
-	lengthOfBar := int64(numOfTargets * id.Attempts)
-	bar := progressbar.Default(lengthOfBar)
+	lengthOfBar := numOfTargets * id.Attempts
 
+	bar := progressbar.NewOptions(lengthOfBar,
+		progressbar.OptionEnableColorCodes(true),
+		progressbar.OptionSetWidth(15),
+		progressbar.OptionSetRenderBlankState(false),
+		progressbar.OptionSetDescription("(3/4) [cyan][Checking][reset] Target group-health ..."),
+		progressbar.OptionSetTheme(progressbar.Theme{
+			Saucer:        "[green]=[reset]",
+			SaucerHead:    "[green]>[reset]",
+			SaucerPadding: " ",
+			BarStart:      "[",
+			BarEnd:        "]",
+		}))
 	var n AtomicInt //initialize mutex
 
 	ch := make(chan *List, numOfTargets)
@@ -66,12 +79,14 @@ func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 	go func(ch chan<- *List) {
 		defer close(ch)
 		wg.Wait()
+		fmt.Println("")
 	}(ch)
 
-	t.AppendHeader(table.Row{"Target ARN", "Status"})
+	t.AppendHeader(table.Row{"Target Group ARN", "Status"})
 
 	for i := range ch {
-		t.AppendRow([]interface{}{i.ARN, i.Status})
+		components, _ := ParseARN(i.ARN)
+		t.AppendRow([]interface{}{components.Resource, i.Status})
 	}
 
 	t.SetStyle(table.StyleLight)
@@ -80,14 +95,16 @@ func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 	select {
 	case <-ch:
 		if n.Value() == numOfTargets {
-			fmt.Println("All Succesfull")
+			fmt.Println("(4/4) All target groups are healthy")
 			os.Exit(0)
 		} else {
-			fmt.Println("Not all services were succesfull")
-			os.Exit(1)
+			fmt.Println("(4/4) Not all target groups are healthy. Please log in to your AWS console to verify")
+			if id.ErrorCode {
+				os.Exit(1)
+			}
 		}
 	case <-time.After(5 * time.Second):
-		fmt.Println("TIMED OUT")
+		fmt.Println("(4/4) TIMED OUT")
 		os.Exit(1)
 	}
 
@@ -134,7 +151,6 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, bar *progressba
 		for _, vl := range result.TargetHealthDescriptions {
 
 			if *vl.TargetHealth.State == "healthy" {
-				fmt.Println("Found HEALTHY Target Group:", arn)
 				listing.Status = "healthy"
 				add := id.Attempts - attempt
 				bar.Add(add)
@@ -143,6 +159,7 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, bar *progressba
 		}
 
 		if listing.Status == "healthy" {
+			n.Add()
 			break
 		} else {
 			time.Sleep(time.Duration(id.Delay) * time.Second)
@@ -152,6 +169,5 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, bar *progressba
 
 	}
 
-	n.Add()
 	ch <- &listing
 }

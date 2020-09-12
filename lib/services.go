@@ -22,6 +22,7 @@ func (id *Constructor) GetServices() (*TargetGroups, error) {
 
 	input.Cluster = aws.String(id.ECSCluster)
 
+	fmt.Println("(1/4) Retrieving target groups from services...")
 	result, err := svc.ListServices(&input)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
