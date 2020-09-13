@@ -14,19 +14,6 @@ jobs:
       - run: 
           command: |    
             set +e  
-            sudo apt-get update
-            sudo apt-get install \
-                  apt-transport-https \
-                  ca-certificates \
-                  curl \
-                  gnupg-agent \
-                  software-properties-common
-            curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-            sudo apt-key fingerprint 0EBFCD88
-            sudo add-apt-repository \
-                  "deb [arch=amd64] https://download.docker.com/linux/debian \
-                  $(lsb_release -cs) \
-                  stable"
             # echo "Building website" 
             # sudo apt-get install python3
             # sudo apt-get install python3-pip
@@ -34,12 +21,12 @@ jobs:
             # cd www
             # mkdocs gh-deploy --force
             # cd ..
-            echo "Building application" 
-            go get -v -t -d ./...
-            go vet -tests=false ./...
-            go test -v ./...
-            mkdir -p build
-            go build -v -o build/health-check
+            # echo "Building application" 
+            # go get -v -t -d ./...
+            # go vet -tests=false ./...
+            # go test -v ./...
+            # mkdir -p build
+            # go build -v -o build/health-check
   # release:
   #   docker:
   #     - image: circleci/golang:1.15
