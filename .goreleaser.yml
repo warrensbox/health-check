@@ -84,4 +84,4 @@ brews:
       bin.install "health-check"
 dockers:
   - image_templates:
-    - warrensbox / health-check
+    - warrensbox/health-check:{{.Env.RELEASE_VERSION}}
