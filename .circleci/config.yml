@@ -43,7 +43,7 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "release" ]; then
               docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
               docker tag health-check "warrensbox/health-check:${CIRCLE_SHA1}"
               docker push "warrensbox/health-check:${CIRCLE_SHA1}"
