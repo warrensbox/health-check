@@ -82,17 +82,3 @@ brews:
     # Default is 'bin.install "program"'.
     install: |
       bin.install "health-check"
-dockers:
-  -
-    image_templates:
-      - warrensbox/health-check:{{.Env.RELEASE_VERSION}}
-    # GOOS of the built binary that should be used.
-    goos: linux
-
-    # GOARCH of the built binary that should be used.
-    goarch: amd64
-
-    # GOARM of the built binary that should be used.
-    goarm: ''
-
-    dockerfile: Dockerfile
