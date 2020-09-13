@@ -41,7 +41,7 @@ Alternatively, you can install the binary from source [here](https://github.com/
 1. This command line tool only queries all target group that is attached to a load balancer.
 2. When a ecs cluster is provided, it concurrently checks for the health status for all target groups.
 3. If a target groups shows at least 1 healthy task, it will return the check while other target groups health checks are concurrently going on. This way, instead of using a loop to check the health status for one target group after another. We can minimize the check times. The total wait time for the results would be the number of attempts times the delay time(in seconds).
-4. The program *will not* exit with 1 unless you pass the `-e` flag for any unhealthy targets.
+4. The program **will not** exit with *error code 1* unless you pass the `-e` flag for any unhealthy targets.
 
 
 
