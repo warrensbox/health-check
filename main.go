@@ -28,7 +28,7 @@ func init() {
 		ecsClusterDesc  = "ECS cluster name"
 		timeoutDesc     = "Timeout if target groups cannot be found. Default is 300 seconds"
 		attemptsDesc    = "Number of attempts to query healthcheck. Default is 5 seconds"
-		delayDesc       = "Delay in between healthcheck. Default is 10 seconds"
+		delayDesc       = "Delay in between health checks. Default is 10 seconds"
 		errorDesc       = "If provided, program will exit with exit status 1 if any target group is unhealthy"
 	)
 
