@@ -41,8 +41,8 @@ jobs:
             source version
             export RELEASE_VERSION; 
             echo "pipeline.number"
-            echo << pipeline.number >>
-            RELEASE_VERSION=$RELEASE_VERSION.${CIRCLE_BUILD_NUM}
+            echo "pipeline.number" << pipeline.number >>
+            RELEASE_VERSION=$RELEASE_VERSION.<< pipeline.number >>
             export RELEASE_VERSION;
             echo $RELEASE_VERSION
             mkdir -p /home/circleci/bin
@@ -97,7 +97,7 @@ jobs:
             export RELEASE_VERSION; 
             echo "pipeline.number"
             echo pipeline.number
-            RELEASE_VERSION=$RELEASE_VERSION.${CIRCLE_BUILD_NUM}
+            RELEASE_VERSION=$RELEASE_VERSION.<< pipeline.number >>
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
               docker tag health-check "warrensbox/health-check:${RELEASE_VERSION}"
