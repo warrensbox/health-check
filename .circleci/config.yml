@@ -66,6 +66,11 @@ jobs:
             pip install \
               docker-compose==1.12.0 \
               awscli==1.11.76
+            git config pack.threads 1
+            git config pack.deltaCacheSize 1
+            git config core.packedGitWindowSize 16m
+            git config core.packedGitLimit 128m
+            git config pack.windowMemory 512m  
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
