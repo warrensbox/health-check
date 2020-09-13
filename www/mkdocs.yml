@@ -1,5 +1,5 @@
 site_name: Health-Check
-site_description: A command line tool to switch between different versions of terraform (install with homebrew and more)
+site_description: A command-line tool that concurrently checks all target groups' health status on AWS
 copyright: This project is maintained by warrensbox
 repo_name: warrensbox/health-check
 repo_url: https://github.com/warrensbox/health-check
