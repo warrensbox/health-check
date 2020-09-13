@@ -16,6 +16,7 @@ jobs:
             set +e  
             apk update
             apk add docker
+            service docker start
             # echo "Building website" 
             # sudo apt-get install python3
             # sudo apt-get install python3-pip
