@@ -51,6 +51,11 @@ jobs:
             git tag -a ${RELEASE_VERSION} -m "Release Version"
             git push origin ${RELEASE_VERSION}
             curl -sL https://git.io/goreleaser | bash
+            echo $RELEASE_VERSION > /tmp/release
+      - save_cache:
+          key: release
+          paths:
+            - /tmp/release
   release-docker:
     docker:
       - image: docker:17.05.0-ce-git
