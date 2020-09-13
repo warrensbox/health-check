@@ -56,7 +56,7 @@ docker run --rm \
   -e AWS_DEFAULT_REGION=${AWS_REGION} \
   health-check \
   --cluster esp-devops #cluster name
-  --attempts 50
+  --attempts 50 #number of attempts
 ```
 
 
