@@ -3,7 +3,7 @@
 
 # Target Group Health Checker [WIP: Experimental - Official release 09/20/20]
 
-The `health-check` command line tool concurrently checks all target groups's health status. Only checks for target groups that are attached to a load balancer.  
+The `health-check` command-line tool concurrently checks all target groups' health status. Only checks for target groups that are attached to a load balancer.  
 
 ## Installation
 
