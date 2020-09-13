@@ -107,7 +107,7 @@ jobs:
             echo "Pushing to github docker"
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               echo $GITHUB_PACKAGES > GITHUB_PACKAGES.txt
-              cat GITHUB_PACKAGES.txt | docker login docker.pkg.github.com -u warrensbox --password-stdin
+              docker login docker.pkg.github.com -u warrensbox --password-stdin < GITHUB_PACKAGES.txt
               docker tag health-check docker.pkg.github.com/warrensbox/health-check/health-check:${RELEASE_VERSION}
               docker push docker.pkg.github.com/warrensbox/health-check/health-check:${RELEASE_VERSION}
             fi
