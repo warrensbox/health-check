@@ -28,14 +28,7 @@ curl -L https://raw.githubusercontent.com/warrensbox/health-check/release/instal
 
 ### Docker
 ```sh
-docker run --rm \
-  -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
-  -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
-  -e AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN} \
-  -e AWS_REGION=${AWS_REGION} \
-  -e AWS_DEFAULT_REGION=${AWS_REGION} \
-  health-check \
-  -c esp-devops
+docker pull warrensbox/health-check:latest
 ```
 
 ### Install from source

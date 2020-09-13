@@ -14,22 +14,22 @@ jobs:
       - run: 
           command: |    
             set +e  
-            # echo "Building website" 
-            # sudo apt-get install python3
-            # sudo apt-get install python3-pip
-            # pip3 install mkdocs-material
-            # cd www
-            # mkdocs gh-deploy --force
-            # cd ..
-            # echo "Building application" 
-            # go get -v -t -d ./...
-            # go vet -tests=false ./...
-            # go test -v ./...
-            # mkdir -p build
-            # go build -v -o build/health-check
+            echo "Building website" 
+            sudo apt-get install python3
+            sudo apt-get install python3-pip
+            pip3 install mkdocs-material
+            cd www
+            mkdocs gh-deploy --force
+            cd ..
+            echo "Building application" 
+            go get -v -t -d ./...
+            go vet -tests=false ./...
+            go test -v ./...
+            mkdir -p build
+            go build -v -o build/health-check
   release:
     docker:
-      - image: circleci/golang:1.15
+      - image: circleci/golang:1.13
 
     working_directory: /go/src/github.com/warrensbox/health-check
 
@@ -106,7 +106,10 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
               docker tag health-check "warrensbox/health-check:${RELEASE_VERSION}"
+              docker tag health-check "warrensbox/health-check:latest"
+
               docker push "warrensbox/health-check:${RELEASE_VERSION}"
+              docker push "warrensbox/health-check:latest"
             fi
     
 workflows:
