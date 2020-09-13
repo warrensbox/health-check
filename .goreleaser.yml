@@ -94,3 +94,5 @@ dockers:
 
     # GOARM of the built binary that should be used.
     goarm: ''
+
+    dockerfile: Dockerfile
