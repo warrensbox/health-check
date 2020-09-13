@@ -13,9 +13,8 @@ import (
 )
 
 type List struct {
-	ServiceName string `json:"arn"`
-	ARN         string `json:"arn"`
-	Status      string `json:"string"`
+	ARN    string
+	Status string
 }
 type AtomicInt struct {
 	mu sync.Mutex // A lock than can be held by one goroutine at a time.
@@ -51,9 +50,10 @@ func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 
 	fmt.Println("(2/4) Number of target groups:", numOfTargets)
 
-	//set up progress bar
+	/*Set up progress bar
+	**Lets users know that the progam is still querying the target groups
+	 */
 	lengthOfBar := numOfTargets * id.Attempts
-
 	bar := progressbar.NewOptions(lengthOfBar,
 		progressbar.OptionEnableColorCodes(true),
 		progressbar.OptionSetWidth(15),
