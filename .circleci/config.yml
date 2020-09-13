@@ -7,7 +7,7 @@ jobs:
     docker:
       - image: circleci/golang:1.13
 
-    working_directory: /go/src/github.com/warrensbox/terraform-switcher
+    working_directory: /go/src/github.com/warrensbox/health-checker
 
     steps:
       - checkout
@@ -15,16 +15,16 @@ jobs:
           command: |    
             set +e  
             echo "Building website" 
-            sudo apt-get install python3
-            sudo apt-get install python3-pip
-            pip3 install mkdocs-material
-            cd www
-            mkdocs gh-deploy --force
-            cd ..
+            # sudo apt-get install python3
+            # sudo apt-get install python3-pip
+            # pip3 install mkdocs-material
+            # cd www
+            # mkdocs gh-deploy --force
+            # cd ..
 
             echo "Building application" 
             go get -v -t -d ./...
             go vet -tests=false ./...
             go test -v ./...
             mkdir -p build
-            go build -v -o build/tfswitch
+            go build -v -o build/health-check
