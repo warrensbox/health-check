@@ -14,9 +14,13 @@ jobs:
       - run: 
           command: |    
             set +e  
-            apk update
-            apk add docker
-            service docker start
+            sudo apt-get update
+            sudo apt-get install \
+                  apt-transport-https \
+                  ca-certificates \
+                  curl \
+                  gnupg-agent \
+                  software-properties-common
             # echo "Building website" 
             # sudo apt-get install python3
             # sudo apt-get install python3-pip
