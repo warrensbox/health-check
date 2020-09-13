@@ -115,7 +115,10 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               docker login docker.pkg.github.com -u="warrensbox" -p=$GITHUB_PACKAGES_TXT
               docker tag health-check docker.pkg.github.com/warrensbox/health-check/health-check:${RELEASE_VERSION}
+              docker tag health-check docker.pkg.github.com/warrensbox/health-check/health-check:latest
+
               docker push docker.pkg.github.com/warrensbox/health-check/health-check:${RELEASE_VERSION}
+              docker push docker.pkg.github.com/warrensbox/health-check/health-check:latest
             fi
     
 workflows:
