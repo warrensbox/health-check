@@ -7,28 +7,26 @@ jobs:
     docker:
       - image: circleci/golang:1.13
 
-    working_directory: /go/src/github.com/warrensbox/health-checker
+    working_directory: /go/src/github.com/warrensbox/health-check
 
     steps:
       - checkout
       - run: 
           command: |    
             set +e  
-            echo "Building website" 
+            # echo "Building website" 
             # sudo apt-get install python3
             # sudo apt-get install python3-pip
             # pip3 install mkdocs-material
             # cd www
             # mkdocs gh-deploy --force
             # cd ..
-
             echo "Building application" 
             go get -v -t -d ./...
             go vet -tests=false ./...
             go test -v ./...
             mkdir -p build
             go build -v -o build/health-check
-
   release:
     docker:
       - image: circleci/golang:1.13
@@ -61,8 +59,8 @@ workflows:
       - build:
           filters:
             branches:
-              only: 
-              - master
+              ignore:
+                - gh-pages
       - release:
           requires:
             - build

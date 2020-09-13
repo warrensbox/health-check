@@ -42,10 +42,27 @@ docker run --rm \
 
 Alternatively, you can install the binary from source [here](https://github.com/warrensbox/health-check/releases)
 
-## How to use:
+## How to use
+
+redo new release
+
+### With Docker
+```sh
+docker run --rm \
+  -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+  -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
+  -e AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN} \
+  -e AWS_REGION=${AWS_REGION} \
+  -e AWS_DEFAULT_REGION=${AWS_REGION} \
+  health-check \
+  -c esp-devops
+```
 
 
 ## How it works
+
+<img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-diagram.png" alt="drawing"  height="300"/>
+
 
 1. This command line tool only queries all target group that is attached to a load balancer.
 2. Given an ecs cluster is provided, it concurrently checks for the health status for all target groups in that cluster.
