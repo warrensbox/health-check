@@ -44,6 +44,8 @@ Alternatively, you can install the binary from source [here](https://github.com/
 
 ## How to use
 
+redo new release
+
 ### With Docker
 ```sh
 docker run --rm \
