@@ -1,0 +1,24 @@
+site_name: Health-Check
+site_description: A command line tool to switch between different versions of terraform (install with homebrew and more)
+copyright: This project is maintained by warrensbox
+repo_name: warrensbox/health-check
+repo_url: https://github.com/warrensbox/health-check
+site_url: https://health-check.warrensbox.com
+
+theme:
+    name: material
+    palette:
+        primary: teal
+    favicon: static/favicon_hc_16.png
+    logo: static/logo.png
+
+nav:
+    - index.md
+    - Install.md
+    - Quick-start.md
+    - How-it-works.md
+
+google_analytics:
+    - UA-120055973-1
+    - auto
+    
