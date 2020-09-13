@@ -104,7 +104,7 @@ jobs:
               docker push "warrensbox/health-check:${RELEASE_VERSION}"
             fi
 
-            echo "Pushing to github docker"
+            echo "Pushing to github docker packages"
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               echo $GITHUB_PACKAGES > GITHUB_PACKAGES.txt
               docker login docker.pkg.github.com -u warrensbox --password-stdin < GITHUB_PACKAGES.txt
