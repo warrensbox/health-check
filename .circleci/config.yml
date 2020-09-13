@@ -40,9 +40,33 @@ jobs:
             go test -v ./...
             mkdir -p build
             go build -v -o build/health-check
+  # release:
+  #   docker:
+  #     - image: circleci/golang:1.15
+
+  #   working_directory: /go/src/github.com/warrensbox/health-check
+
+  #   steps:
+  #     - checkout
+  #     - run: 
+  #         command: |
+  #           set +e   
+  #           source version
+  #           export RELEASE_VERSION; 
+  #           RELEASE_VERSION=$RELEASE_VERSION.${CIRCLE_BUILD_NUM}
+  #           export RELEASE_VERSION;
+  #           echo $RELEASE_VERSION
+  #           mkdir -p /home/circleci/bin
+  #           export PATH="/home/warrensbox/bin:${PATH}"
+  #           rm -rf dist
+  #           git config user.email "warren.veerasingam@gmail.com"
+  #           git config user.name "warrensbox"
+  #           git tag -a ${RELEASE_VERSION} -m "Release Version"
+  #           git push origin ${RELEASE_VERSION}
+  #           curl -sL https://git.io/goreleaser | bash
   release:
     docker:
-      - image: circleci/golang:1.15
+      - image: alpine:3.10
 
     working_directory: /go/src/github.com/warrensbox/health-check
 
@@ -50,20 +74,11 @@ jobs:
       - checkout
       - run: 
           command: |
-            set +e   
-            source version
-            export RELEASE_VERSION; 
-            RELEASE_VERSION=$RELEASE_VERSION.${CIRCLE_BUILD_NUM}
-            export RELEASE_VERSION;
-            echo $RELEASE_VERSION
-            mkdir -p /home/circleci/bin
-            export PATH="/home/warrensbox/bin:${PATH}"
-            rm -rf dist
-            git config user.email "warren.veerasingam@gmail.com"
-            git config user.name "warrensbox"
-            git tag -a ${RELEASE_VERSION} -m "Release Version"
-            git push origin ${RELEASE_VERSION}
-            curl -sL https://git.io/goreleaser | bash
+            set +e 
+            apk add --update docker openrc 
+            rc-update add docker boot 
+
+    
 workflows:
   version: 2
 
