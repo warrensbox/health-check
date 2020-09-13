@@ -40,6 +40,8 @@ jobs:
             set +e   
             source version
             export RELEASE_VERSION; 
+            echo "pipeline.number"
+            echo pipeline.number
             RELEASE_VERSION=$RELEASE_VERSION.${CIRCLE_BUILD_NUM}
             export RELEASE_VERSION;
             echo $RELEASE_VERSION
@@ -93,7 +95,8 @@ jobs:
           command: |
             source version
             export RELEASE_VERSION; 
-            CIRCLE_BUILD_NUM=${CIRCLE_BUILD_NUM}-1
+            echo "pipeline.number"
+            echo pipeline.number
             RELEASE_VERSION=$RELEASE_VERSION.${CIRCLE_BUILD_NUM}
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
