@@ -47,6 +47,9 @@ Alternatively, you can install the binary from source [here](https://github.com/
 
 ## How it works
 
+<img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-diagram.png" alt="drawing"  height="300"/>
+
+
 1. This command line tool only queries all target group that is attached to a load balancer.
 2. Given an ecs cluster is provided, it concurrently checks for the health status for all target groups in that cluster.
 3. If a target groups shows *at least* 1 healthy task, it will return the check while other target groups health checks are concurrently going on.  
