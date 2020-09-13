@@ -55,7 +55,7 @@ docker run --rm \
   -e AWS_REGION=${AWS_REGION} \
   -e AWS_DEFAULT_REGION=${AWS_REGION} \
   health-check \
-  -c esp-devops #cluster name
+  --cluster esp-devops #cluster name
 ```
 
 
