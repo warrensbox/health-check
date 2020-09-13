@@ -24,7 +24,7 @@ archives:
   -
     name_template: '{{ .ProjectName }}_{{.Env.RELEASE_VERSION}}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
     replacements:
-      darwin: macOS
+      darwin: darwin
       linux: linux
       386: 386
       amd64: amd64
@@ -82,3 +82,6 @@ brews:
     # Default is 'bin.install "program"'.
     install: |
       bin.install "health-check"
+dockers:
+  - image_templates:
+    - warrensbox / health-check
