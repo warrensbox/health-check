@@ -123,7 +123,6 @@ workflows:
               - release
       - release-docker:
           requires:
-            - build
             - release
           filters:
             branches:
