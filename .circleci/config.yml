@@ -64,7 +64,7 @@ jobs:
             set +e 
             apk add --update docker openrc 
             rc-update add docker boot 
-            docker ps
+            docker build -t docker-alpine .
 
     
 workflows:
