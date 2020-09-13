@@ -108,14 +108,6 @@ jobs:
               docker tag health-check "warrensbox/health-check:${RELEASE_VERSION}"
               docker push "warrensbox/health-check:${RELEASE_VERSION}"
             fi
-
-            echo "Pushing to github docker packages 2"
-            if [ "${CIRCLE_BRANCH}" == "release" ]; then
-              echo $GITHUB_PACKAGES 
-              docker login docker.pkg.github.com -u="warrensbox" -p=$GITHUB_PACKAGES
-              docker tag health-check docker.pkg.github.com/warrensbox/health-check/health-check:${RELEASE_VERSION}
-              docker push docker.pkg.github.com/warrensbox/health-check/health-check:${RELEASE_VERSION}
-            fi
     
 workflows:
   version: 2
