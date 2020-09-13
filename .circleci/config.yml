@@ -39,8 +39,7 @@ jobs:
           command: |
             set +e   
             source version
-            export RELEASE_VERSION; 
-            echo "pipeline.number"
+            export RELEASE_VERSION
             echo "pipeline.number" << pipeline.number >>
             RELEASE_VERSION=$RELEASE_VERSION.<< pipeline.number >>
             export RELEASE_VERSION;
@@ -94,14 +93,22 @@ jobs:
           name: Push application Docker image
           command: |
             source version
-            export RELEASE_VERSION; 
-            echo "pipeline.number"
-            echo pipeline.number
+            export RELEASE_VERSION
+            echo "pipeline.number" << pipeline.number >>
             RELEASE_VERSION=$RELEASE_VERSION.<< pipeline.number >>
+
+            echo "Pushing to docker hub"
             if [ "${CIRCLE_BRANCH}" == "release" ]; then
               docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
               docker tag health-check "warrensbox/health-check:${RELEASE_VERSION}"
               docker push "warrensbox/health-check:${RELEASE_VERSION}"
+            fi
+
+            echo "Pushing to github docker"
+            if [ "${CIRCLE_BRANCH}" == "release" ]; then
+              echo $GITHUB_PACKAGES | docker login docker.pkg.github.com -u warrensbox --password-stdin
+              docker tag health-check docker.pkg.github.com/warrensbox/health-check/health-check:${RELEASE_VERSION}
+              docker push docker.pkg.github.com/warrensbox/health-check/health-check:${RELEASE_VERSION}
             fi
     
 workflows:
