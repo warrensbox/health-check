@@ -15,7 +15,7 @@
 
 <img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-all-bad-0.gif" alt="drawing"  height="300"/>
 
-1. Likewise, if you dont't provide the `e` flag, the program  will simply exit with `exit code 0` if any of the target is unhealthy
+1. Likewise, if you dont't provide the `-e` flag, the program  will simply exit with `exit code 0` if any of the target is unhealthy
 
 ### With Docker
 ```sh

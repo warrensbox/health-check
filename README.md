@@ -56,7 +56,7 @@ Alternatively, you can install the binary from source [here](https://github.com/
 ### Use the `-e` option
 <img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-all-bad-1.gif" alt="drawing"  height="300"/>
 
-1. You you provide the `e` flag, the program  will exit with `exit code 1` if any of the target is unhealthy
+1. You you provide the `-e` flag, the program  will exit with `exit code 1` if any of the target is unhealthy
 2. This is useful for continuous delivery - Jenkins, CircleCI and others  
 
 <img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-all-bad-0.gif" alt="drawing"  height="300"/>
