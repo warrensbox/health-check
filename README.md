@@ -74,7 +74,7 @@ docker run --rm \
   health-check \
   --ecs-cluster esp-devops \ #cluster name 
   --attempts 50 \  #number of attempts
-  --delay 2 #number of attempts
+  --delay 2 #delay in second
 ```
 
 ## How it works
