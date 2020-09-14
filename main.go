@@ -2,12 +2,15 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/warrensbox/health-checker/lib"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
+
+var version = "0.1.0\n"
 
 var (
 	versionFlag *bool
@@ -45,6 +48,11 @@ func main() {
 
 	kingpin.CommandLine.Interspersed(false)
 	kingpin.Parse()
+
+	if *versionFlag {
+		fmt.Printf("\nVersion: %v\n", version)
+		os.Exit(0)
+	}
 
 	config := &aws.Config{Region: aws.String(*awsRegion)}
 
