@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/warrensbox/health-check.svg?branch=master)](https://travis-ci.org/warrensbox/health-check)
 [![Go Report Card](https://goreportcard.com/badge/github.com/warrensbox/health-check)](https://goreportcard.com/report/github.com/warrensbox/health-check)
+[![CircleCI](https://circleci.com/gh/warrensbox/health-check/tree/master.svg?style=shield&circle-token=c5d416ceb68675bb6602c58b084a2df2d51d7601)](https://circleci.com/gh/warrensbox/health-check)
+
+
 
 # AWS Target Group Health Checker 
 
