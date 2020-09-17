@@ -10,6 +10,8 @@
 
 The `health-check` command-line tool concurrently checks all target groups' health status (for target groups that are attached to a load balancer).  
 
+The program returns 0 when you have at least one healthy target for each service.
+
 ## Installation
 
 `health-check` is available for MacOS and Linux based operating systems.
