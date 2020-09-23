@@ -39,9 +39,6 @@ func (a *AtomicInt) Value() int {
 	return n
 }
 
-type tmpStruct struct {
-}
-
 func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 
 	t := table.NewWriter()
