@@ -171,3 +171,7 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, bar *progressba
 
 	ch <- &listing
 }
+
+func (id *Constructor) showProgressBar() {
+
+}
