@@ -10,6 +10,8 @@
 
 The `health-check` command-line tool concurrently checks all target groups' health status (for target groups that are attached to a load balancer).  
 
+The program returns 0 when you have at least one healthy target for each service.
+
 ## Installation
 
 `health-check` is available for MacOS and Linux based operating systems.
@@ -71,10 +73,7 @@ docker run --rm \
   -e AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN} \
   -e AWS_REGION=${AWS_REGION} \
   -e AWS_DEFAULT_REGION=${AWS_REGION} \
-  health-check \
-  --ecs-cluster esp-devops \ #cluster name 
-  --attempts 50 \  #number of attempts
-  --delay 2 #delay in second
+  health-check --ecs-cluster esp-devops --attempts 50 --delay 2 
 ```
 
 ## How it works

@@ -25,8 +25,5 @@ docker run --rm \
   -e AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN} \
   -e AWS_REGION=${AWS_REGION} \
   -e AWS_DEFAULT_REGION=${AWS_REGION} \
-  health-check \
-  --ecs-cluster esp-devops \ #cluster name 
-  --attempts 50 \  #number of attempts
-  --delay 2 ##delay in second
+  health-check --ecs-cluster esp-devops --attempts 50 --delay 2 
 ```
