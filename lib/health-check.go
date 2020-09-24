@@ -39,9 +39,6 @@ func (a *AtomicInt) Value() int {
 	return n
 }
 
-type tmpStruct struct {
-}
-
 func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 
 	t := table.NewWriter()
@@ -50,22 +47,9 @@ func (id *Constructor) GetHealthCheck(tgs *TargetGroups) {
 
 	fmt.Println("(2/4) Number of target groups:", numOfTargets)
 
-	/*Set up progress bar
-	**Lets users know that the progam is still querying the target groups
-	 */
 	lengthOfBar := numOfTargets * id.Attempts
-	bar := progressbar.NewOptions(lengthOfBar,
-		progressbar.OptionEnableColorCodes(true),
-		progressbar.OptionSetWidth(15),
-		progressbar.OptionSetRenderBlankState(false),
-		progressbar.OptionSetDescription("(3/4) [cyan][Checking][reset] Target group-health ..."),
-		progressbar.OptionSetTheme(progressbar.Theme{
-			Saucer:        "[green]=[reset]",
-			SaucerHead:    "[green]>[reset]",
-			SaucerPadding: " ",
-			BarStart:      "[",
-			BarEnd:        "]",
-		}))
+	bar := id.progressBarrConstuctor(lengthOfBar)
+
 	var n AtomicInt //initialize mutex
 
 	ch := make(chan *List, numOfTargets)
@@ -152,8 +136,9 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, bar *progressba
 
 			if *vl.TargetHealth.State == "healthy" {
 				listing.Status = "healthy"
-				add := id.Attempts - attempt
-				bar.Add(add)
+				addBar := id.Attempts - attempt
+				id.increaseProgressBarr(bar, addBar)
+				//bar.Add(add)
 				break
 			}
 		}
@@ -164,10 +149,38 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, bar *progressba
 		} else {
 			time.Sleep(time.Duration(id.Delay) * time.Second)
 			attempt++
-			bar.Add(1)
+			id.increaseProgressBarr(bar, 1)
+			//bar.Add(1)
 		}
 
 	}
 
 	ch <- &listing
+}
+
+func (id *Constructor) progressBarrConstuctor(lengthOfBar int) *progressbar.ProgressBar {
+
+	if !id.DisableProgressBar {
+		bar := progressbar.NewOptions(lengthOfBar,
+			progressbar.OptionEnableColorCodes(true),
+			progressbar.OptionSetWidth(15),
+			progressbar.OptionSetRenderBlankState(false),
+			progressbar.OptionSetDescription("(3/4) [cyan][Checking][reset] Target group-health ..."),
+			progressbar.OptionSetTheme(progressbar.Theme{
+				Saucer:        "[green]=[reset]",
+				SaucerHead:    "[green]>[reset]",
+				SaucerPadding: " ",
+				BarStart:      "[",
+				BarEnd:        "]",
+			}))
+		return bar
+	}
+	fmt.Println("(3/4) Checking Target group-health ...")
+	return nil
+}
+
+func (id *Constructor) increaseProgressBarr(bar *progressbar.ProgressBar, progress int) {
+	if bar != nil {
+		bar.Add(progress)
+	}
 }

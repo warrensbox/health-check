@@ -16,6 +16,7 @@ var (
 	versionFlag *bool
 	helpFlag    *bool
 	ErrorFlag   *bool
+	barFlag     *bool
 	awsRegion   *string
 	ecsCluster  *string
 	timeout     *int
@@ -33,10 +34,12 @@ func init() {
 		attemptsDesc    = "Number of attempts to query healthcheck. Default is 5 seconds"
 		delayDesc       = "Delay in between health checks. Default is 10 seconds"
 		errorDesc       = "If provided, program will exit with exit status 1 if any target group is unhealthy"
+		progressBarDesc = "Disable progress bar"
 	)
 
 	versionFlag = kingpin.Flag("version", versionFlagDesc).Short('v').Bool()
 	ErrorFlag = kingpin.Flag("error", versionFlagDesc).Short('e').Bool()
+	barFlag = kingpin.Flag("disable-bar", versionFlagDesc).Short('b').Bool()
 	awsRegion = kingpin.Flag("region", awsRegionDesc).Short('r').String()
 	ecsCluster = kingpin.Flag("ecs-cluster", ecsClusterDesc).Short('c').String()
 	timeout = kingpin.Flag("timeout", timeoutDesc).Short('t').Int()
@@ -59,12 +62,13 @@ func main() {
 	session := session.Must(session.NewSession(config))
 
 	construct := &lib.Constructor{
-		ECSCluster: *ecsCluster,
-		Timeout:    *timeout,
-		Attempts:   *attempts,
-		Delay:      *delay,
-		ErrorCode:  *ErrorFlag,
-		Session:    session,
+		ECSCluster:         *ecsCluster,
+		Timeout:            *timeout,
+		Attempts:           *attempts,
+		Delay:              *delay,
+		ErrorCode:          *ErrorFlag,
+		DisableProgressBar: *barFlag,
+		Session:            session,
 	}
 
 	profile := lib.NewConstructor(construct)

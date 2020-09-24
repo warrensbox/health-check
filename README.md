@@ -1,11 +1,16 @@
 [![Build Status](https://travis-ci.org/warrensbox/health-check.svg?branch=master)](https://travis-ci.org/warrensbox/health-check)
 [![Go Report Card](https://goreportcard.com/badge/github.com/warrensbox/health-check)](https://goreportcard.com/report/github.com/warrensbox/health-check)
+[![CircleCI](https://circleci.com/gh/warrensbox/health-check/tree/master.svg?style=shield&circle-token=c5d416ceb68675bb6602c58b084a2df2d51d7601)](https://circleci.com/gh/warrensbox/health-check)
+
+
 
 # AWS Target Group Health Checker 
 
 <img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/logo.svg" alt="drawing" width="100" height="130"/>
 
 The `health-check` command-line tool concurrently checks all target groups' health status (for target groups that are attached to a load balancer).  
+
+The program returns 0 when you have at least one healthy target for each service.
 
 ## Installation
 
@@ -50,15 +55,21 @@ Alternatively, you can install the binary from source [here](https://github.com/
 3. Optionally, you can also provide the `attempts` option for the number of attempts for the health check
 
 
-### Use the `-e` option
-<img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-all-bad-0.gif" alt="drawing"  height="300"/>
-
-1. You you provide the `e` flag, the program  will exit with `exit code 1` if any of the target is unhealthy
-2. This is useful for continuous delivery - Jenkins, CircleCI and others  
-
+### Use the `-e` option to exit with 1 when unhealthy
 <img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-all-bad-1.gif" alt="drawing"  height="300"/>
 
-1. Likewise, if you dont't provide the `e` flag, the program  will simply exit with `exit code 0` if any of the target is unhealthy
+1. You you provide the `-e` flag, the program  will exit with `exit code 1` if any of the target is unhealthy
+2. This is useful for continuous delivery - Jenkins, CircleCI and others  
+
+<img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-all-bad-0.gif" alt="drawing"  height="300"/>
+
+1. Likewise, if you dont't provide the `-e` flag, the program  will simply exit with `exit code 0` if any of the target is unhealthy
+
+### Use the `-b` option to disable progress bar
+
+<img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-progressbar-jenkins.png" alt="drawing"  height="300"/>
+
+On jenkins you may not want the progress bar to be printed out as it prints out the progress line by line. You can use the `-b` option to disable progress bar. By default, it prints the progress bar.
 
 ### With Docker
 ```sh
@@ -68,10 +79,7 @@ docker run --rm \
   -e AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN} \
   -e AWS_REGION=${AWS_REGION} \
   -e AWS_DEFAULT_REGION=${AWS_REGION} \
-  health-check \
-  --ecs-cluster esp-devops \ #cluster name 
-  --attempts 50 \  #number of attempts
-  --delay 2 #number of attempts
+  health-check --ecs-cluster esp-devops --attempts 50 --delay 2 
 ```
 
 ## How it works
