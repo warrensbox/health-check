@@ -158,7 +158,6 @@ func (id *Constructor) GetHealthStatus(arn string, n *AtomicInt, bar *progressba
 	ch <- &listing
 }
 
-<<<<<<< HEAD
 func (id *Constructor) progressBarrConstuctor(lengthOfBar int) *progressbar.ProgressBar {
 
 	if !id.DisableProgressBar {
@@ -184,8 +183,4 @@ func (id *Constructor) increaseProgressBarr(bar *progressbar.ProgressBar, progre
 	if bar != nil {
 		bar.Add(progress)
 	}
-=======
-func (id *Constructor) showProgressBar() {
-
->>>>>>> cb6f320085efdabe75770d342d0c38f71f42a5b1
 }
