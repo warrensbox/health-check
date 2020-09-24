@@ -266,6 +266,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#use-the-b-option-to-disable-progress-bar" class="md-nav__link">
+    Use the -b option to disable progress bar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#with-docker" class="md-nav__link">
     With Docker
   </a>
@@ -340,6 +347,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#use-the-b-option-to-disable-progress-bar" class="md-nav__link">
+    Use the -b option to disable progress bar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#with-docker" class="md-nav__link">
     With Docker
   </a>
@@ -391,6 +405,9 @@
 <ol>
 <li>Likewise, if you dont't provide the <code>-e</code> flag, the program  will simply exit with <code>exit code 0</code> if any of the target is unhealthy</li>
 </ol>
+<h3 id="use-the-b-option-to-disable-progress-bar">Use the <code>-b</code> option to disable progress bar</h3>
+<p><img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-progressbar-jenkins.png" alt="drawing"  height="300"/></p>
+<p>On jenkins you may not want the progress bar to be printed out as it prints out the progress line by line. You can use the <code>-b</code> option to disable progress bar. By default, it prints the progress bar.</p>
 <h3 id="with-docker">With Docker</h3>
 <pre><code class="sh">docker run --rm \
   -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
