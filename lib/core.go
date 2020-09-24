@@ -9,12 +9,13 @@ import (
 
 //Constructor : structure for session
 type Constructor struct {
-	ECSCluster string
-	Timeout    int
-	Attempts   int
-	Delay      int
-	ErrorCode  bool
-	Session    *session.Session
+	ECSCluster         string
+	Timeout            int
+	Attempts           int
+	Delay              int
+	ErrorCode          bool
+	DisableProgressBar bool
+	Session            *session.Session
 }
 
 //NewConstructor :validate object
@@ -35,6 +36,13 @@ func NewConstructor(attr *Constructor) *Constructor {
 	}
 	if attr.ErrorCode == false {
 		attr.ErrorCode = false
+	} else {
+		attr.ErrorCode = true
+	}
+	if attr.DisableProgressBar == true {
+		attr.DisableProgressBar = true
+	} else {
+		attr.DisableProgressBar = false
 	}
 
 	return attr
