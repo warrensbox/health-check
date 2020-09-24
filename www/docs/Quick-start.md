@@ -7,7 +7,7 @@
 3. Optionally, you can also provide the `attempts` option for the number of attempts for the health check
 
 
-### Use the `-e` option
+### Use the `-e` option to exit with 1 when unhealthy
 <img style="text-allign:center" src="https://kepler-images.s3.us-east-2.amazonaws.com/warrensbox/health-check/health-check-all-bad-1.gif" alt="drawing"  height="300"/>
 
 1. You you provide the `-e` flag, the program  will exit with `exit code 1` if any of the target is unhealthy
