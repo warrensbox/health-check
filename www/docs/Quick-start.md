@@ -31,7 +31,7 @@ docker run --rm \
   -e AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN} \
   -e AWS_REGION=${AWS_REGION} \
   -e AWS_DEFAULT_REGION=${AWS_REGION} \
-  health-check --ecs-cluster esp-devops --attempts 50 --delay
+  health-check --ecs-cluster esp-devops --attempts 50 --delay 2
 
   ## pass -b to disable progress bar on jenkins
 ```
