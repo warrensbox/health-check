@@ -7,8 +7,6 @@ builds:
     main: main.go
     binary: health-check
     goos:
-      - windows
-      - darwin
       - linux
     goarch:
       - 386
