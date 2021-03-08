@@ -45,7 +45,7 @@ brews:
   # GitHub/GitLab repository to push the formula to
     # Gitea is not supported yet, but the support coming
     tap:
-      owner: repo-owner
+      owner: warrensbox
       name: homebrew-tap
 
     # Reporitory to push the tap to.
