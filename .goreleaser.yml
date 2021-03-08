@@ -42,10 +42,16 @@ brews:
     # Default to project name
     #name: health-check
 
-    # Reporitory to push the tap to.
-    github:
-      owner: warrensbox
+  # GitHub/GitLab repository to push the formula to
+    # Gitea is not supported yet, but the support coming
+    tap:
+      owner: repo-owner
       name: homebrew-tap
+
+    # Reporitory to push the tap to.
+    # github:
+    #   owner: warrensbox
+    #   name: homebrew-tap
 
     # Allows you to set a custom download strategy.
     # Default is empty.
