@@ -11,12 +11,12 @@ builds:
       - freebsd
       - netbsd
       - linux
+      - windows
     goarch:
       - 386
       - amd64
       - arm
       - arm64
-      - windows
     goarm:
       - 6
       - 7
