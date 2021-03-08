@@ -7,7 +7,8 @@ builds:
     main: main.go
     binary: health-check
     goos:
-      - linux
+      - darwin
+      - freebsd
     goarch:
       - 386
       - amd64
