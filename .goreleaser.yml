@@ -16,12 +16,15 @@ builds:
       - amd64
       - arm
       - arm64
+      - windows
     goarm:
       - 6
       - 7
     ignore:
       - goos: freebsd
         goarch: arm64
+      - goos: windows
+        goarch: arm
 checksum:
   name_template: '{{ .ProjectName }}_{{.Env.RELEASE_VERSION}}_checksums.txt'
 changelog:
