@@ -24,6 +24,7 @@ var (
 	delay       *int
 )
 
+// Add specific ar for service
 func init() {
 
 	const (
