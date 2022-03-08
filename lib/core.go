@@ -16,7 +16,6 @@ type Constructor struct {
 	ErrorCode          bool
 	DisableProgressBar bool
 	Session            *session.Session
-	ECSService         string
 }
 
 //NewConstructor :validate object
